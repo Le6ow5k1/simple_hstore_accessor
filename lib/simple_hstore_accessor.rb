@@ -1,5 +1,6 @@
 require 'active_support'
 require 'active_record'
+require 'activerecord-postgres-hstore'
 require 'simple_hstore_accessor/version'
 
 module SimpleHstoreAccessor
@@ -16,6 +17,8 @@ module SimpleHstoreAccessor
   #
   # Returns nothing
   def store_accessor(hstore_attribute, *keys)
+    serialize hstore_attribute, ActiveRecord::Coders::Hstore
+
     Array(keys).flatten.each do |key|
       define_method("#{key}=") do |value|
         send("#{hstore_attribute}_will_change!")
