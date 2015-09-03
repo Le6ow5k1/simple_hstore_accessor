@@ -24,6 +24,19 @@ module SimpleHstoreAccessor
       define_method(key) do
         send(hstore_attribute) && send(hstore_attribute)[key.to_s]
       end
+      define_method("#{key}_will_change!") { attribute_will_change!(key.to_s) }
+      define_method("#{key}_changed?") { attribute_changed?(key.to_s) }
+    end
+
+    define_method("#{hstore_attribute}=") do |new_properties|
+      current_properties = send(hstore_attribute) || {}
+
+      (current_properties.keys | new_properties.keys).each do |key|
+        next if current_properties[key].to_s == new_properties[key].to_s || !respond_to?("#{key}_will_change!")
+        send("#{key}_will_change!")
+      end
+
+      super(new_properties)
     end
   end
 end

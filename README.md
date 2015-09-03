@@ -1,5 +1,7 @@
 # SimpleHstoreAccessor
 
+[![Dolly](http://dolly.railsc.ru/badges/abak-press/simple_hstore_accessor/master)](http://dolly.railsc.ru/projects/125/builds/latest/?ref=master)
+
 Simple Hstore Accessor allows you to treat fields on an hstore column as though they were actual columns in Rails 3.
 
 ## Installation
@@ -36,4 +38,3 @@ end
 4. Commit your changes (`git commit -am 'Add some feature'`)
 5. Push to the branch (`git push origin my-new-feature`)
 6. Create new Pull Request
-
