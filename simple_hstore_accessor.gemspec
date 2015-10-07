@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'activerecord', '>= 3.1'
+  spec.add_runtime_dependency 'activerecord', '>= 3.1', '< 5.0'
   spec.add_runtime_dependency 'activesupport'
   spec.add_runtime_dependency 'activerecord-postgres-hstore'
 
@@ -29,5 +29,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '>= 2.14.0'
   spec.add_development_dependency 'appraisal', '>= 1.0.2'
   spec.add_development_dependency 'combustion'
-  spec.add_development_dependency 'pry-debugger'
 end
