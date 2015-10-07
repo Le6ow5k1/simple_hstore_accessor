@@ -1,6 +1,6 @@
 RAILS_ENV = test
 BUNDLE = RAILS_ENV=${RAILS_ENV} bundle
-BUNDLE_OPTIONS = --jobs=2
+BUNDLE_OPTIONS = --jobs=3
 RSPEC = rspec
 APPRAISAL = appraisal
 
