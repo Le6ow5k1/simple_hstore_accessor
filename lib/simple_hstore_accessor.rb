@@ -1,6 +1,6 @@
 require 'active_support'
 require 'active_record'
-require 'activerecord-postgres-hstore'
+require 'activerecord-postgres-hstore' if ::ActiveRecord::VERSION::MAJOR < 4
 require 'simple_hstore_accessor/version'
 
 module SimpleHstoreAccessor
@@ -17,7 +17,9 @@ module SimpleHstoreAccessor
   #
   # Returns nothing
   def store_accessor(hstore_attribute, *keys)
-    serialize hstore_attribute, ActiveRecord::Coders::Hstore
+    if defined?(ActiveRecord::Coders::Hstore)
+      serialize hstore_attribute, ActiveRecord::Coders::Hstore
+    end
 
     Array(keys).flatten.each do |key|
       define_method("#{key}=") do |value|
