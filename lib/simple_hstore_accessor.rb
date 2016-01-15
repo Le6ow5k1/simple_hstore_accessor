@@ -21,7 +21,13 @@ module SimpleHstoreAccessor
       serialize hstore_attribute, ActiveRecord::Coders::Hstore
     end
 
-    Array(keys).flatten.each do |key|
+    class << self
+      attr_reader :accessor_keys
+    end
+
+    @accessor_keys = Array(keys).flat_map(&:to_sym)
+
+    accessor_keys.each do |key|
       define_method("#{key}=") do |value|
         send("#{hstore_attribute}_will_change!")
         send("#{hstore_attribute}=", (send(hstore_attribute) || {}).merge(key.to_s => value))
@@ -31,6 +37,22 @@ module SimpleHstoreAccessor
       end
       define_method("#{key}_will_change!") { attribute_will_change!(key.to_s) }
       define_method("#{key}_changed?") { attribute_changed?(key.to_s) }
+    end
+
+    define_method :write_attribute do |attr_name, value|
+      if self.class.accessor_keys.include?(attr_name.to_sym)
+        public_send("#{attr_name}=", value)
+      else
+        super(attr_name, value)
+      end
+    end
+
+    define_method :read_attribute do |attr_name|
+      if self.class.accessor_keys.include?(attr_name.to_sym)
+        public_send(attr_name)
+      else
+        super(attr_name)
+      end
     end
 
     define_method("#{hstore_attribute}=") do |new_properties|

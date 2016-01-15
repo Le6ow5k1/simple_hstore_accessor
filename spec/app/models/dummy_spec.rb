@@ -4,7 +4,7 @@ require 'spec_helper'
 describe Dummy do
   let(:dummy) { described_class.new(latitude: 7, longitude: 11) }
 
-  it { expect(dummy).to respond_to(:coordinates) }
+  it { expect(dummy).to respond_to(:properties) }
 
   it { expect(dummy).to respond_to(:latitude) }
   it { expect(dummy).to respond_to(:latitude=) }
@@ -83,6 +83,48 @@ describe Dummy do
 
         it { expect(dummy).to be_longitude_changed }
       end
+    end
+  end
+
+  describe '#write_attribute' do
+    context 'when called with hstore attribute' do
+      before { dummy.write_attribute(:longitude, 5) }
+
+      it { expect(dummy.longitude).to eq(5) }
+    end
+
+    context 'when called with regular attribute' do
+      before { dummy.write_attribute(:regular_attribute, 'changed') }
+
+      it { expect(dummy.regular_attribute).to eq('changed') }
+    end
+  end
+
+  describe '#read_attribute' do
+    context 'when called with hstore attribute' do
+      it { expect(dummy.read_attribute(:longitude)).to eq(dummy.longitude) }
+    end
+
+    context 'when called with regular attribute' do
+      it { expect(dummy.read_attribute(:regular_attribute)).to eq(dummy.regular_attribute) }
+    end
+  end
+
+  context 'when hstore attribute is used as an association key' do
+    let(:dummy_association) { DummyAssociation.create }
+    let(:dummy) { described_class.create }
+
+    before do
+      dummy.dummy_association = dummy_association
+      dummy.save
+    end
+
+    describe '#dummy_association_id' do
+      it { expect(dummy.dummy_association_id.to_i).to eq(dummy_association.id) }
+    end
+
+    describe '#dummy_association' do
+      it { expect(described_class.find(dummy.id).dummy_association).to eq(dummy_association) }
     end
   end
 end
