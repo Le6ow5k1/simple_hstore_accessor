@@ -1,5 +1,9 @@
 ActiveRecord::Schema.define do
   create_table(:dummies, :force => true) do |t|
-    t.column :coordinates, :hstore
+    t.column :properties, :hstore
+    t.string :regular_attribute
+  end
+
+  create_table(:dummy_associations, :force => true) do |t|
   end
 end
