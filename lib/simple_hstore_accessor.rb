@@ -25,7 +25,7 @@ module SimpleHstoreAccessor
       attr_reader :accessor_keys
     end
 
-    @accessor_keys = Array(keys).flat_map(&:to_sym)
+    @accessor_keys = Array(keys).flatten.map(&:to_sym)
 
     accessor_keys.each do |key|
       define_method("#{key}=") do |value|
