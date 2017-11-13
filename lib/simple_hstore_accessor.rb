@@ -17,8 +17,10 @@ module SimpleHstoreAccessor
   #
   # Returns nothing
   def store_accessor(hstore_attribute, *keys)
-    if defined?(ActiveRecord::Coders::Hstore)
-      serialize hstore_attribute, ActiveRecord::Coders::Hstore
+    unless serialized_attributes.key?(hstore_attribute.to_s)
+      if defined?(ActiveRecord::Coders::Hstore)
+        serialize hstore_attribute, ActiveRecord::Coders::Hstore
+      end
     end
 
     accessor_keys = Array(keys).flatten.map(&:to_sym)
