@@ -1,5 +1,11 @@
 
 #### [Current]
+
+
+#### v0.3.0
+ * 2017-11-13 [ec3764e](../../commit/ec3764e) - __(Konstantin Lazarev)__ Release 0.3.0
+ * 2017-04-05 [a2d076c](../../commit/a2d076c) - __(Salahutdinov Dmitry)__ chore: add drone ci
+ * 2016-04-26 [a8a4a42](../../commit/a8a4a42) - __(Konstantin Lazarev)__ Release 0.2.0
  * 2016-02-04 [2ff69e5](../../commit/2ff69e5) - __(evseevleo)__ fix(hstore_accsessor): nil accessor_keys in subclasses
  * 2016-01-29 [670a23c](../../commit/670a23c) - __(evseevleo)__ fix(simple_hstore_accessor): flatten keys in store_accessor
  * 2016-01-15 [f2f6acc](../../commit/f2f6acc) - __(Konstantin Lazarev)__ feature: add read/write_attribute methods
